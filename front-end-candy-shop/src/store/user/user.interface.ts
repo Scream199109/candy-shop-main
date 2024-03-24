@@ -2,7 +2,6 @@ import {IUser} from "types/user.interface";
 
 export interface IUserState {
   email: string;
-  isAdmin: boolean;
 }
 export interface ITokens {
   accessToken: string;
@@ -10,7 +9,7 @@ export interface ITokens {
 }
 
 export interface IInitialState {
-  user: IUserState;
+  user: IUserState | null;
   isLoading: boolean;
 }
 
@@ -20,8 +19,6 @@ export interface IEmailPassword {
 }
 
 export interface IAuthResponse extends ITokens {
-  user: IUser & {
-    isAdmin: boolean;
-  }
+  user: IUser;
 }
 
