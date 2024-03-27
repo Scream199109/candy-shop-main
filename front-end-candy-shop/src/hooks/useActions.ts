@@ -1,3 +1,4 @@
+'use client'
 import {bindActionCreators} from "@reduxjs/toolkit";
 import {useMemo} from "react";
 import {useDispatch} from "react-redux";

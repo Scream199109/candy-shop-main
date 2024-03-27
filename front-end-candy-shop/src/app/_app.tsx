@@ -1,7 +1,6 @@
+'use client'
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {AppProps} from 'next/app';
-import '../../assets/styles/global.css';
-import '../../assets/styles/null.css';
 
 const queryClient = new QueryClient({
   defaultOptions: {

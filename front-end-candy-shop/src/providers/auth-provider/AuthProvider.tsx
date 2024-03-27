@@ -1,3 +1,4 @@
+'use client'
 import {useActions} from "hooks/useActions";
 import {useAuth} from "hooks/useAuth";
 import dynamic from "next/dynamic";
