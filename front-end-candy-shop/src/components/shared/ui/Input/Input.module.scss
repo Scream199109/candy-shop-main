@@ -1,0 +1,14 @@
+.input {
+  outline: none;
+  padding: 1em;
+  border: 1px solid var(--orange);
+  color: var(--orange);
+  border-radius: 10px;
+  background-color: var(--primary);
+  width: 100%;
+
+  &::placeholder {
+    color: var(--btn-orange-dark);
+    font-size: 14px;
+  }
+}

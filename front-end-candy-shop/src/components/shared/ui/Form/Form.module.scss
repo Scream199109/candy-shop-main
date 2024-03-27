@@ -1,0 +1,68 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border: 2px dashed var(--orange);
+  border-radius: 15px;
+  background-color: var(--primary);
+  box-shadow: 0 0 0 4px var(--primary), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
+  transition: .4s ease-in-out;
+  min-width: 440px;
+  max-width: 30%;
+  padding: 20px;
+}
+
+.heading {
+  color: var(--orange);
+  background-color: transparent;
+  letter-spacing: .25em;
+  text-align: center;
+  text-shadow: inset -1px -1px 1px var(--orange);
+  font-size: 30px;
+  margin: 0;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  gap: 10px;
+}
+
+.btn {
+  align-self: center;
+  margin-top: 2em;
+  border-radius: 10px;
+  outline: none;
+  border: none;
+  color: white;
+  background-color: var(--btn-orange-dark);
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  transition: .4s ease-in-out opacity, .1s ease-in-out active;
+  padding: 1em;
+  box-shadow: 0.5px 0.5px 0.5px 0.5px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    transform: translateX(0.1em) translateY(0.1em);
+    box-shadow: none;
+  }
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}

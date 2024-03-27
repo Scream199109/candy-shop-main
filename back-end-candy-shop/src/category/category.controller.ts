@@ -8,14 +8,6 @@ import {CategoryService} from './category.service';
 export class CategoryController {
   constructor(private readonly categoryService: CategoryService) { }
 
-
-  @HttpCode(200)
-  @Auth()
-  @Post()
-  async create() {
-    return this.categoryService.create()
-  }
-
   @Get()
   async getAll() {
     return this.categoryService.getAll()
@@ -32,6 +24,13 @@ export class CategoryController {
     return this.categoryService.getByIdOrSlug({id: +id})
   }
 
+  @HttpCode(200)
+  @Auth()
+  @Post()
+  async create() {
+    return this.categoryService.create()
+  }
+
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
   @Auth()
@@ -39,7 +38,6 @@ export class CategoryController {
   async update(@Body() dto: CategoryDto, @Param('id') id: string) {
     return this.categoryService.update(+id, dto)
   }
-
 
   @UsePipes(new ValidationPipe())
   @HttpCode(200)
