@@ -18,7 +18,7 @@ export const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(register.fulfilled, (state, {payload}) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.user = payload.user;
       })
       .addCase(register.rejected, (state) => {
@@ -29,7 +29,7 @@ export const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(login.fulfilled, (state, {payload}) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.user = payload.user;
       })
       .addCase(login.rejected, (state) => {
@@ -40,7 +40,7 @@ export const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(logout.fulfilled, (state) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.user = null;
       })
       .addCase(logout.rejected, (state) => {
@@ -51,7 +51,7 @@ export const userSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(checkAuth.fulfilled, (state, {payload}) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.user = payload.user;
       })
       .addCase(checkAuth.rejected, (state) => {

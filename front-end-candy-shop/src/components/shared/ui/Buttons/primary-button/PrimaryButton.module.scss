@@ -1,0 +1,14 @@
+.button {
+  border-radius: 6px;
+  font-size: var(--font-size-m);
+  transition: all 0.3s ease;
+  padding: 0.4rem 1rem;
+
+  &:hover {
+    background-color: var(--orange);
+  }
+
+  &.default {
+    background-color: var(--orange);
+  }
+}

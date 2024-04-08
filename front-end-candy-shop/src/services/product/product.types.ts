@@ -1,3 +1,5 @@
+import {IProduct} from "types/product.interface";
+
 export const PRODUCTS = 'products';
 export const SIMILAR = 'similar';
 export const BY_SLUG = 'by-slug';
@@ -18,9 +20,18 @@ export type TypeProductDataFilters = {
   perPage?: string | number;
 }
 
-export const enum EnumProductSort {
+export enum EnumProductSort {
   HIGH_PRICE = 'high-price',
   LOW_PRICE = 'low-price',
   NEWEST = 'newest',
   OLDEST = 'oldest',
+}
+
+export type TypeProducts = {
+  products: IProduct[];
+}
+
+export type TypePaginationProducts = {
+  length: number;
+  products: IProduct[];
 }

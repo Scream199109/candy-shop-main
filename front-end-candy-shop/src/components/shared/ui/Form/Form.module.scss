@@ -3,15 +3,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  border: 2px dashed var(--orange);
-  border-radius: 15px;
-  background-color: var(--primary);
-  box-shadow: 0 0 0 4px var(--primary), 2px 2px 4px 2px rgba(0, 0, 0, 0.5);
-  transition: .4s ease-in-out;
-  min-width: 440px;
-  max-width: 30%;
-  padding: 20px;
 }
 
 .heading {
@@ -65,4 +56,8 @@
   justify-content: center;
   align-items: center;
   gap: 20px;
+}
+
+.warning {
+  color: red;
 }

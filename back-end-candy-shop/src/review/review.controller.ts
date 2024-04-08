@@ -29,4 +29,9 @@ export class ReviewController {
   ) {
     return this.reviewService.create(id, dto, +productId)
   }
+
+  @Get('average-by-product/:productId')
+  async getAverageByProduct(@Param('productOd') productId: string) {
+    return this.reviewService.getAverageValueByProductId(+productId)
+  }
 }

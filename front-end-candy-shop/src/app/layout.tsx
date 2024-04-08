@@ -1,8 +1,9 @@
 import StoreProvider from "api/StoreProvider";
-import Header from "components/widgets/header/ui/Header";
+import Header from "components/widgets/Header/ui/Header";
 import type {Metadata} from "next";
-import '../../assets/styles/global.scss';
-import '../../assets/styles/null.scss';
+import {ToastContainer} from "react-toastify";
+import '../assets/styles/global.scss';
+import '../assets/styles/null.scss';
 
 
 export const metadata: Metadata = {
@@ -19,6 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body >
         <StoreProvider>
+          <ToastContainer />
           <Header />
           {children}
         </StoreProvider>

@@ -5,16 +5,18 @@ import {
   FLUSH,
   PAUSE,
   PERSIST,
-  persistReducer,
-  persistStore,
   PURGE,
   REGISTER,
-  REHYDRATE
+  REHYDRATE,
+  persistReducer,
+  persistStore
 } from 'redux-persist';
 
 import storage from "redux-persist/lib/storage";
-import {store} from "store/store";
+import cartSlice from "store/cart/cart.slice";
+import modalSlice from "store/modal/modal.slice";
 import {userSlice} from "store/user/user.slice";
+import {StoreState} from "types/store/store-state-types";
 
 const persistConfig = {
   key: 'candy-shop',
@@ -23,13 +25,15 @@ const persistConfig = {
 }
 
 const rootReducer = combineReducers({
-  user: userSlice.reducer
+  user: userSlice.reducer,
+  modals: modalSlice.reducer,
+  cart: cartSlice.reducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const makeStore = () => {
-  return configureStore({
+  return configureStore<StoreState>({
     reducer: persistedReducer,
     middleware: getDefaulMiddleware =>
       getDefaulMiddleware({
@@ -40,7 +44,7 @@ export const makeStore = () => {
   })
 }
 
-export const persistor = persistStore(store);
+export const persistor = persistStore(makeStore());
 
 export type TypeRootState = ReturnType<typeof rootReducer>;
 

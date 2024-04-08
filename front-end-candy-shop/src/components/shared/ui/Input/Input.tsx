@@ -1,5 +1,5 @@
 'use client'
-import {InputValidateParams} from 'components/screens/auth/Auth';
+import {classNames} from 'components/shared/lib/classNames/classNames';
 import {ChangeEvent, InputHTMLAttributes, forwardRef} from 'react';
 import styles from './Input.module.scss';
 
@@ -9,12 +9,12 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   id: string;
   type: InputType;
   label?: string;
-  value: string | number;
   name: string;
-  placeholder: string;
+  placeholder?: string;
   disabled?: boolean;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-  params?: InputValidateParams;
+  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  error?: boolean;
+  helpertext?: string;
 }
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -23,13 +23,18 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
       id,
       type,
       label,
-      value,
       name,
       placeholder,
       disabled,
       onChange,
+      error,
+      helpertext,
       ...rest
     } = props;
+
+    const mods: Record<string, boolean> = {
+      [styles.incorrect]: !!error
+    };
 
     return (
       <>
@@ -37,16 +42,16 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         <input
           type={type}
           id={id}
-          value={value}
           name={name}
           placeholder={placeholder}
           onChange={onChange}
           disabled={disabled}
-          className={styles.input}
+          className={classNames(styles.input, mods)}
           autoComplete='new-password'
           ref={ref}
           {...rest}
         />
+        <p className={styles.warning}> {helpertext && helpertext} </p>
       </>
     );
   });

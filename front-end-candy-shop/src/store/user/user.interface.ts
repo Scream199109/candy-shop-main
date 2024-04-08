@@ -18,6 +18,11 @@ export interface IEmailPassword {
   password: string;
 }
 
+export interface IRegisterData extends IEmailPassword {
+  phone: string;
+  name: string;
+}
+
 export interface IAuthResponse extends ITokens {
   user: IUser;
 }
