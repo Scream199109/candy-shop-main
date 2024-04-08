@@ -5,5 +5,6 @@ export const enum TokenEnum {
 
 export const enum AuthType {
   LOGIN = 'login',
-  REGISTER = 'register'
+  REGISTER = 'register',
+  LOGOUT = 'logout'
 }

@@ -2,7 +2,7 @@ import {Injectable, NotFoundException} from '@nestjs/common';
 import {Prisma} from '@prisma/client';
 import {PaginationService} from 'src/pagination/pagination.service';
 import {PrismaService} from 'src/prisma.service';
-import {productReturnObject, productReturnObjectFullest} from 'src/product/return-product.object';
+import {productReturnObject} from 'src/product/return-product.object';
 import {generateSlug} from 'src/utils/generate-slug';
 import {EnumProductSort, GetAllProductDto} from './dto/get-all.product.dto';
 import {ProductDto} from './dto/product.dto';
@@ -55,7 +55,8 @@ export class ProductService {
       where: prismaSearchTermFilter,
       orderBy: prismaSort,
       skip,
-      take: perPage
+      take: perPage,
+      select: productReturnObject
     })
     return {products, length: await this.prisma.product.count({where: prismaSearchTermFilter})}
   }
@@ -67,7 +68,7 @@ export class ProductService {
       where: {
         OR: [{id}, {slug}]
       },
-      select: productReturnObjectFullest
+      select: productReturnObject
     })
 
     if (!product) throw new NotFoundException('Товар не найден')
@@ -84,7 +85,7 @@ export class ProductService {
           slug: categorySlug
         }
       },
-      select: productReturnObjectFullest
+      select: productReturnObject
     })
 
     if (!products) throw new NotFoundException('Товары не найдены')

@@ -9,6 +9,8 @@ export const instance = axios.create({
 })
 
 instance.interceptors.request.use(async config => {
+
+  // emitToast('error', `${error.response.data.message}`);
   const accsessToken = getAccessToken();
   if (config.headers && accsessToken) {
     config.headers.Authorization = `Bearer ${accsessToken}`
@@ -16,11 +18,18 @@ instance.interceptors.request.use(async config => {
   return config
 })
 
-instance.interceptors.response.use(config => config, async error => {
+instance.interceptors.response.use(response => {
+
+  // emitToast('success', 'Успешно');
+
+  return response
+}, async error => {
   const originalRequest = error.config;
 
+  // emitToast('error', `${error.response.data.message}`);
+
   if (
-    (error.response.status === 401 ||
+    (error?.response?.status === 401 ||
       errorCatch(error) === 'jwt expired' ||
       errorCatch(error) === 'jwt must be provided') &&
     error.config &&

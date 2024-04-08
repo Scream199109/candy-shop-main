@@ -3,11 +3,11 @@ import {errorCatch} from "api/api.helper";
 import {removeFromStorage} from "services/auth/auth.helper";
 import {AuthService} from "services/auth/auth.service";
 import {AuthType} from "types/auth.enum";
-import {IAuthResponse, IEmailPassword} from "./user.interface";
+import {IAuthResponse, IEmailPassword, IRegisterData} from "./user.interface";
 
 
 // register
-export const register = createAsyncThunk<IAuthResponse, IEmailPassword>(
+export const register = createAsyncThunk<IAuthResponse, IRegisterData>(
   'auth/register',
   async (data, thunkApi) => {
     try {

@@ -6,9 +6,15 @@
   border-radius: 10px;
   background-color: var(--primary);
   width: 100%;
+  font-size: var(--font-size-m);
 
   &::placeholder {
-    color: var(--btn-orange-dark);
+    color: var(--dark);
     font-size: 14px;
+    opacity: 0.6;
   }
+}
+
+.incorrect {
+  border: 1px solid var(--danger);
 }

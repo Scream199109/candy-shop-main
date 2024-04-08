@@ -1,63 +1,64 @@
 'use client'
-import {useEffect} from 'react';
-import {useForm} from 'react-hook-form';
-import formErrors, {defaultError} from 'translates/form/form-errors';
+import {yupResolver} from '@hookform/resolvers/yup';
+import {AUTH_MODAL} from 'consts';
+import {useAuth} from 'hooks/useAuth';
+import {PropsWithChildren} from 'react';
+import {SubmitHandler, useForm} from 'react-hook-form';
+import {useDispatch} from 'react-redux';
+import {setModalState} from 'store/modal/modal.slice';
+import {IEmailPassword, IRegisterData} from 'store/user/user.interface';
+import * as yup from 'yup';
 import Input, {InputProps} from '../Input/Input';
 import styles from './Form.module.scss';
 
-interface FormProps {
+interface FormProps extends PropsWithChildren<{
+  onSubmit: SubmitHandler<any>;
+  validationSchema: yup.ObjectSchema<any>;
+}> {
   title: string;
-  fields: InputProps[];
   submitText: string;
-  // onSubmit: (formData: {[key: string]: string}) => void;
-  onSubmit: (formData: any) => void;
+  fields: InputProps[];
 }
 
-const Form = ({title, fields, submitText, onSubmit}: FormProps) => {
+const Form = ({title, submitText, onSubmit, fields = [], validationSchema}: FormProps) => {
 
-  const {register, handleSubmit, reset, formState: {errors, isSubmitSuccessful}} = useForm();
+  const {isLoading} = useAuth();
 
-  const onSubmitHandler = (data: any) => {
-    onSubmit(data);
-    // reset();
-  };
+  const {register, handleSubmit, reset, formState: {errors, isValid}} = useForm({
+    mode: "onChange",
+    resolver: yupResolver(validationSchema)
+  });
 
-  useEffect(() => {
-    if (isSubmitSuccessful) {
-      reset()
+  const dispatch = useDispatch();
+
+  const onHandleSubmit = async (data: IEmailPassword | IRegisterData) => {
+
+    if (isValid) {
+      const response = await onSubmit(data);
+      //@ts-ignore  
+      if (!response.error && !isLoading) {
+        dispatch(setModalState({modal: AUTH_MODAL, isOpen: false}))
+        reset();
+      }
     }
-  }, [isSubmitSuccessful, reset])
+  }
 
   return (
-    <form onSubmit={handleSubmit(onSubmitHandler)} className={styles.form}>
+    <form noValidate onSubmit={handleSubmit(onHandleSubmit)} className={styles.form}>
       <h2 className={styles.heading}>
         {title}
       </h2>
-      {fields.map(field => {
-        const errorType = errors[field.name]?.type;
-        let error: string | undefined;
-        if (typeof errorType === 'string') {
-          error = formErrors[errorType] || defaultError;
-        }
-
-        return (
-          <div key={field.id} className={styles.field}>
-            <label htmlFor={field.id}>{field.label}</label>
-            <Input
-              // TODO Разобраться с params. почему то не видит minLength
-              {...register(field.name, {...field.params})}
-              id={field.id}
-              type={field.type}
-              name={field.name}
-              placeholder={field.placeholder}
-              value={field.value}
-              onChange={field.onChange}
-            />
-            {errors[field.name] && <p style={{color: 'red'}}>{error}</p>}
-          </div>
-        )
-      })
-      }
+      {fields.map((field, index) => (
+        <div key={index} className={styles.field}>
+          <label>{field.label}</label>
+          <Input
+            {...field}
+            {...register(field.name)}
+            error={!!errors[field.name]}
+          />
+          {errors[field.name] && <span className={styles.warning}>{`${errors[field.name]?.message}`}</span>}
+        </div>
+      ))}
       <button type="submit" className={styles.btn}>
         {submitText}
       </button>
